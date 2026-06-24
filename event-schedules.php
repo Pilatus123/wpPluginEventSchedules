@@ -838,7 +838,7 @@ class Event_Schedules
         $double_slot = !empty($_POST['double_slot']) ? 1 : 0;
         $slot_ids = isset($_POST['slots']) ? array_map('intval', (array) $_POST['slots']) : [];
 
-        // Date and time — only meaningful when for_everyone = 1
+        // Date and time, only meaningful when for_everyone = 1
         $event_date = sanitize_text_field($_POST['event_date'] ?? '');
         $start_time = sanitize_text_field($_POST['start_time'] ?? '');
         $end_time = sanitize_text_field($_POST['end_time'] ?? '');
@@ -901,7 +901,7 @@ class Event_Schedules
         if (!$event_id)
             self::redirect_admin();
 
-        // Verify nonce — name must match what wp_nonce_field() used when rendering
+        // Verify nonce, name must match what wp_nonce_field() used when rendering
         if (!wp_verify_nonce($_POST['es_del_nonce_' . $event_id] ?? '', 'es_delete_event')) {
             wp_die('Nonce failed');
         }
@@ -1142,7 +1142,7 @@ class Event_Schedules
             fclose($fh);
             return [[], []];
         }
-        // Count commas vs semicolons — whichever appears more is the delimiter
+        // Count commas vs semicolons, whichever appears more is the delimiter
         $delimiter = substr_count($first_line, ';') > substr_count($first_line, ',') ? ';' : ',';
         // Rewind and re-read properly with the detected delimiter
         rewind($fh);
@@ -1256,7 +1256,7 @@ class Event_Schedules
     // Put this shortcode on a page called something like "My Schedule".
     public static function shortcode_schedule()
     {
-        // sanitize_key: lowercase alphanumeric + hyphens/underscores — safe for our hex token
+        // sanitize_key: lowercase alphanumeric + hyphens/underscores, safe for our hex token
         $token = isset($_GET['t']) ? sanitize_key(wp_unslash($_GET['t'])) : '';
 
         if (!$token) {
